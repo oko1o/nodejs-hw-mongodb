@@ -10,12 +10,15 @@ import { sortFields } from '../db/models/contact.js';
 export const getAllContactsController = async (req, res) => {
   const { perPage, page } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams({ ...req.query, sortFields });
+  const { type: contactType, isFavourite } = req.query;
 
   const data = await contactServices.getAllContacts({
     perPage,
     page,
     sortBy,
     sortOrder,
+    contactType,
+    isFavourite,
   });
 
   res.json({

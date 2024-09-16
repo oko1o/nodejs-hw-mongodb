@@ -9,18 +9,28 @@ export const getAllContacts = async ({
   page,
   sortBy = '_id',
   sortOrder = SORT_ORDER[0],
+  contactType,
+  isFavourite,
 }) => {
   const skip = (page - 1) * perPage;
-  const contactQuery = ContactsCollection.find();
+  const filter = {};
+
+  if (contactType) {
+    filter.contactType = contactType;
+  }
+
+  if (typeof isFavourite !== 'undefined') {
+    filter.isFavourite = isFavourite;
+  }
+
+  const contactQuery = ContactsCollection.find(filter);
 
   const contacts = await contactQuery
     .skip(skip)
     .limit(perPage)
     .sort({ [sortBy]: sortOrder });
 
-  const count = await ContactsCollection.find()
-    // .merge(contactQuery)
-    .countDocuments();
+  const count = await ContactsCollection.find(filter).countDocuments();
 
   const paginationData = calculatePaginationData({ count, perPage, page });
 
