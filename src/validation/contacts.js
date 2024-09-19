@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { contactType } from '../constants/contacts.js';
+import { contactTypes } from '../constants/contacts.js';
 
 export const contactAddSchema = Joi.object({
   name: Joi.string().min(3).max(20).required().messages({
@@ -24,7 +24,7 @@ export const contactAddSchema = Joi.object({
     'boolean.base': 'isFavourite must be a boolean value',
   }),
   contactType: Joi.string()
-    .valid(...contactType)
+    .valid(...contactTypes)
     .default('personal')
     .min(3)
     .max(20)
@@ -32,7 +32,7 @@ export const contactAddSchema = Joi.object({
     .messages({
       'string.min': 'Contact type must be at least 3 characters long',
       'string.max': 'Contact type must be no more than 20 characters long',
-      'any.only': `Contact type must be one of ${contactType.join(', ')}`,
+      'any.only': `Contact type must be one of ${contactTypes.join(', ')}`,
       'any.required': 'Contact type is required',
     }),
 });
@@ -55,12 +55,12 @@ export const contactPatchSchema = Joi.object({
     'boolean.base': 'isFavourite must be a boolean value',
   }),
   contactType: Joi.string()
-    .valid(...contactType)
+    .valid(...contactTypes)
     .min(3)
     .max(20)
     .messages({
       'string.min': 'Contact type must be at least 3 characters long',
       'string.max': 'Contact type must be no more than 20 characters long',
-      'any.only': `Contact type must be one of ${contactType.join(', ')}`,
+      'any.only': `Contact type must be one of ${contactTypes.join(', ')}`,
     }),
 });
