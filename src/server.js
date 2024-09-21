@@ -1,11 +1,17 @@
 import express from 'express';
-import pino from 'pino-http';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+
+import pino from 'pino-http';
 import dotenv from 'dotenv';
+
 import { env } from './utils/env.js';
+
 import errorHandler from './middlewares/errorHandler.js';
 import notFoundHandler from './middlewares/notFoundHandler.js';
+
 import contactRouter from './routers/contacts.js';
+import authRouter from './routers/auth.js';
 
 dotenv.config();
 const PORT = Number(env('PORT', '3000'));
@@ -23,7 +29,9 @@ export const setupServer = () => {
 
   app.use(cors());
   app.use(express.json());
+  app.use(cookieParser());
 
+  app.use('/auth', authRouter);
   app.use('/contacts', contactRouter);
 
   app.use(notFoundHandler);
