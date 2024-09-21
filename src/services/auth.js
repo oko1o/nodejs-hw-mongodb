@@ -97,7 +97,6 @@ export const refreshSession = async ({ refreshToken, sessionId }) => {
     userId: oldSession._id,
     ...sessionData,
   });
-  console.log(userSession);
   return userSession;
 };
 
