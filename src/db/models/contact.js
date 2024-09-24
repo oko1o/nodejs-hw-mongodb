@@ -12,7 +12,7 @@ const contactSchema = new Schema(
       type: String,
       required: true,
     },
-    mail: {
+    email: {
       type: String,
       trim: true,
       lowercase: true,
@@ -51,7 +51,7 @@ export const ContactsCollection = model('contacts', contactSchema);
 export const sortFields = [
   'name',
   'phoneNumber',
-  'mail',
+  'email',
   'isFavourite',
   'contactType',
 ];
