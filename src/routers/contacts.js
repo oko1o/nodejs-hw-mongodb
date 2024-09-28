@@ -4,6 +4,7 @@ import * as contactControllers from '../controllers/contacts.js';
 
 import authenticate from '../middlewares/authenticate.js';
 import isValidId from '../middlewares/isValidId.js';
+import upload from '../middlewares/upload.js';
 
 import ctrlWrapper from '../utils/ctrlWrapper.js';
 import validateBody from '../utils/validateBody.js';
@@ -29,12 +30,14 @@ contactRouter.get(
 
 contactRouter.post(
   '/',
+  upload.single('photo'),
   validateBody(contactAddSchema),
   ctrlWrapper(contactControllers.addContactController),
 );
 
 contactRouter.patch(
   '/:contactId',
+  upload.single('photo'),
   isValidId,
   validateBody(contactPatchSchema),
   ctrlWrapper(contactControllers.patchContactController),
