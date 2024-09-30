@@ -75,9 +75,21 @@ export const addContactController = async (req, res) => {
 export const patchContactController = async (req, res) => {
   const { contactId } = req.params;
   const { _id: userId } = req.user;
+  let updatedData = { ...req.body };
+
+  if (req.file) {
+    let photo;
+    if (enableCloudinary === 'true') {
+      photo = await saveFileToCloudinary(req.file, 'photos');
+    } else {
+      photo = await saveFileToUploadDir(req.file);
+    }
+    updatedData.photo = photo;
+  }
+
   const data = await contactServices.updateContact(
     { _id: contactId, userId },
-    req.body,
+    updatedData,
   );
 
   if (!data) {
