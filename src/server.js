@@ -13,6 +13,8 @@ import notFoundHandler from './middlewares/notFoundHandler.js';
 import contactRouter from './routers/contacts.js';
 import authRouter from './routers/auth.js';
 
+import swaggerDocs from './middlewares/swaggerDocs.js';
+
 dotenv.config();
 const PORT = Number(env('PORT', '3000'));
 
@@ -31,6 +33,7 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(cookieParser());
   app.use(express.static('uploads'));
+  app.use('/api-docs', swaggerDocs());
 
   app.use('/auth', authRouter);
   app.use('/contacts', contactRouter);
