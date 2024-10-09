@@ -399,8 +399,7 @@
                 "required": [
                   "name",
                   "phoneNumber",
-                  "contactType",
-                  "userId"
+                  "contactType"
                 ],
                 "properties": {
                   "name": {
@@ -437,11 +436,6 @@
                     "description": "Link to contact's photo",
                     "type": "string",
                     "format": "binary"
-                  },
-                  "userId": {
-                    "description": "Contact's parent user id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
                   }
                 }
               }

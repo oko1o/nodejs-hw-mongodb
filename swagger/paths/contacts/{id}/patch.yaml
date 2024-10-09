@@ -15,7 +15,7 @@ parameters:
     description: 'The id of the contact to update'
 requestBody:
   content:
-    application/json:
+    multipart/form-data:
       schema:
         type: object
         properties:
